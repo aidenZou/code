@@ -40,7 +40,13 @@ module.exports = {
         }
     },
     created () {
-        this.initList()
+        // 通过该选项 doNotInit 来判断是否需要在组件创建完毕之后就初始化
+        // 在调用该mixins的组件中 添加这么一个选项 就可以让组件不执行初始化方法
+        // 而是通过route->data()钩子来控制列表的初始化
+        let option = this.$options.doNotInit
+        if (!option) {
+            this.initList()
+        }
     },
     watch: {
         page: 'loadData'
